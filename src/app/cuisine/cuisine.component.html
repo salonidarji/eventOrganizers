@@ -1,0 +1,120 @@
+<app-menu (myEvent)="search($event)"></app-menu>
+<hr>
+<div class="row">
+  <div class="col-md-7">
+        <div class="row">
+
+           <div *ngFor="let itemDish of dishArr" class="col-sm-6 col-sm-4">
+              <div class="card"  style="width: 18rem;" >
+                <img class="card-img-top" height="100px" width="100px" src="#" alt="Card image cap">
+                <div class="card-body">
+                  <h5 class="card-title">{{itemDish.dish_name}}</h5>
+                  <h4 class="card-title">{{itemDish.dish_price}}</h4>
+                  <button class="btn btn-default" (click)="onCart(itemDish)">Add to Cart </button>
+                  <!-- <button class="btn btn-default">Update</button>
+                  <button class="btn btn-default">Delete </button> -->
+
+               </div>
+           </div>
+         </div>
+    </div>
+  </div>
+    <div class="col-md-5">
+        <div *ngIf="flagOrder == 0">
+        <h5 class="text-danger" >!!! You Have Not Placed Any Order..</h5>
+        <button *ngIf="flagPast == 0" (click)="onPastOrder()" class="btn btn-primary ">Show Past Orders</button>
+            <div *ngIf="flagPast == 1">
+                <h1>Past Orders : </h1>
+                <table class="table">
+                    <tr>
+                        <th>Bill Number :</th>
+                        <th>Bill Amount :</th>
+                        <th>Bill Date :</th>
+                    </tr>
+                    <tr *ngFor="let itemSummary of summaryArr">
+                      <td>{{itemSummary.bill_no}} </td>
+                      <td>{{itemSummary.bill_amount}} </td>
+                      <td>{{itemSummary.bill_date}} </td>
+                    </tr>
+                  </table>
+            </div>
+
+        </div>
+        <h5 class="text-success" *ngIf="flag == 1">Order Placed Successfully ... </h5>
+
+      <div *ngIf="flagOrder == 1">
+          <h1>Order Bill</h1>
+          <table class="table table-borderd ">
+            <thead>
+              <th>Item Name</th>
+              <th>Quantity</th>
+              <th>Item Price</th>
+
+            </thead>
+
+              <tbody>
+                <tr *ngFor="let item of itemArr; let i=index">
+                  <td>{{item.dish_name}}</td>
+                  <td><input type="number"  [(ngModel)]="qtyArr[i]" name="qtyArr" (change)="updateQty(item,i)"></td>
+                  <td>{{priceArr[i]}}</td>
+                  <td><button (click)="onDelete(i)" class="btn btn-danger">Delete</button></td>
+                </tr>
+              </tbody>
+
+          </table>
+
+      <hr>
+      <h4>Total Amount: {{total}}  </h4>
+
+      <button class="btn btn-primary btn-block" (click)="onCheckOut()">CheckOut</button>
+
+
+      <div class="container" *ngIf="flagSummary == 1">
+            <h1>Summary</h1>
+            <table class="table">
+              <tr>
+                  <th>Bill Number :</th>
+                  <th>Bill Amount :</th>
+                  <th>Bill Date :</th>
+              </tr>
+              <tr *ngFor="let itemSummary of summaryArr">
+                <td>{{itemSummary.bill_no}} </td>
+                <td>{{itemSummary.bill_amount}} </td>
+                <td>{{itemSummary.bill_date}} </td>
+              </tr>
+            </table>
+            <button class="btn btn-primary" (click)="showDetail()">Show Details</button>
+       </div>
+       <div *ngIf="flagDetail == 1" >
+       <h1>Details</h1>
+          <table class="table table-borderd ">
+            <thead>
+              <th>Item id</th>
+              <th>Quantity</th>
+              <th>Item Price</th>
+              <th>Bill Number</th>
+
+            </thead>
+
+              <tbody>
+                <tr *ngFor="let item of detailArr; let i=index">
+                  <td>{{item.fk_dish_id}}</td>
+                  <td>{{item.qty}}</td>
+                  <td>{{item.bill_price}}</td>
+                  <td>{{item.fk_bill_no}}</td>
+                  <td></td>
+                </tr>
+              </tbody>
+
+          </table>
+
+      <hr>
+      <h4>Total Amount: {{total}}  </h4>
+      </div>
+  </div>
+  <a align="center" *ngIf="flagClose == 1" class=" text-success text-bold" (click)="closeAll()">Close All</a>
+</div>
+</div>
+
+
+

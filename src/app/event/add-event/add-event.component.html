@@ -1,0 +1,33 @@
+<table  height="50%" width="50%" align="center">
+    <form [formGroup]="eventForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <tr><td>
+        <br><input type="text" formControlName="event_name" placeholder="event Name" class="form-control"><br>
+        <div *ngIf="!eventForm.get('event_name').valid && eventForm.get('event_name').touched">
+            <span *ngIf="eventForm.get('event_name').hasError('required')"  >event Name Is REQUIERD..!!!</span>
+
+        </div>
+      </td></tr>
+      <tr><td>
+          <br><input type="text" formControlName="event_type" placeholder="event Type" class="form-control">  <br>
+          <div *ngIf="!eventForm.get('event_type').valid && eventForm.get('event_type').touched">
+              <span  >event type Is REQUIERD..!!!</span>
+            </div>
+        </td></tr>
+        <tr><td>
+            <br><input type="number" formControlName="event_price" placeholder="event price"  class="form-control">  <br>
+            <div *ngIf="!eventForm.get('event_price').valid && eventForm.get('event_price').touched">
+                <span  >event price Is REQUIERD..!!!</span>
+              </div>
+          </td></tr>
+        <!-- <tr><td>
+          <br><input type="file" formControlName="event_pic" (change)="onFileSelected($event)"><br>
+
+          </td></tr> -->
+      <tr><td>
+        <input type="submit" class="btn btn-primary" >
+
+      </td></tr>
+      </div>
+    </form>
+    </table>
